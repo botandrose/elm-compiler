@@ -2,7 +2,7 @@ module Main where
 
 import qualified System.Directory as Dir
 import qualified System.Environment as Env
-import System.Exit (exitWith)
+import System.Exit (die, exitWith)
 import System.IO (hPutStrLn, stderr, stdin, stdout)
 import qualified System.Process as Proc
 
@@ -25,7 +25,7 @@ attemptToRun command args =
   do  found <- Dir.findExecutable ("elm-" ++ command)
       case found of
         Nothing ->
-          hPutStrLn stderr $
+          die $
             "Could not find command `" ++ command ++ "`. Maybe there is a typo?\n\n\
             \Default commands include:\n\n"
             ++ availableCommands ++
